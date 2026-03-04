@@ -2,13 +2,12 @@ import dill
 import numpy as np
 import matplotlib.pyplot as plt
 import data_visualization as dv
-import src.dyad_lqg_separate_targets_viapoint_params as param
+import src.model_params as param
 import src.constants as const
 import src.plot_functions as pf
 from copy import deepcopy
 from pathlib import Path
 import polars as pl
-from src.dyad import Models
 from src.control_model import (
     GTOControlPolicy,
     GTODynamics,
