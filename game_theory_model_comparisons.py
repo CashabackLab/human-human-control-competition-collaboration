@@ -236,8 +236,12 @@ for i, partner_knowledge in enumerate(partner_knowledges):
         )
         all_models[model_names[i]].append(deepcopy(model))
         if SAVE:
-            with open(SAVE_PATH / f"model_object_{model_names[i]}_{const.condition_names[j]}.pkl", 'wb') as f:
-                dill.dump(model,f)
+            # Only save one model object for joint/interactive conditions since 
+            # feedback gains are the same across all joint conditions for a given model type
+            # This saves space and time since the model objects contain everything
+            if const.condition_names[j] == "joint_p1_jump":
+                with open(SAVE_PATH / f"model_object_{model_names[i]}_{const.condition_names[j]}.pkl", 'wb') as f:
+                    dill.dump(model,f)
 
         for k in range(NUM_TRIALS):
             model.run_simulation(probe_trial=False)
