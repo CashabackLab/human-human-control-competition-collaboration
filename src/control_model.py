@@ -794,10 +794,12 @@ class DualModelSimulator(ModelSimulator):
         self.timesteps = np.linspace(0, self.dynamics.N, self.dynamics.N + 1)
         self.set_empty_arrays()
 
-        assert self.p1_policy.Q_partner == self.p2_policy.Q_self, "p1's partner Q must be equal to p2's self Q"
-        assert self.p2_policy.Q_partner == self.p1_policy.Q_self, "p1's partner Q must be equal to p2's self Q"
-        assert self.p1_policy.R_self_partner == self.p2_policy.R_partner_self, "p1's R_self_partner must be equal to p2's R_partner_self"
-        assert self.p2_policy.R_self_partner == self.p1_policy.R_partner_self, "p2's R_self_partner must be equal to p1's R_partner_self"
+        # Make sure that what p1 and p2 use is actually what is happening
+        # One could remove this to see what happens with imperfect estimates
+        assert np.all(self.p1_policy.Q_partner == self.p2_policy.Q_self), "p1's partner Q must be equal to p2's self Q"
+        assert np.all(self.p2_policy.Q_partner == self.p1_policy.Q_self), "p1's partner Q must be equal to p2's self Q"
+        assert np.all(self.p1_policy.R_self_partner == self.p2_policy.R_partner_self), "p1's R_self_partner must be equal to p2's R_partner_self"
+        assert np.all(self.p2_policy.R_self_partner == self.p1_policy.R_partner_self), "p2's R_self_partner must be equal to p1's R_partner_self"
 
         if "rfx" in self.dynamics.state_mapping:
             self.p1_control_state_idx = self.dynamics.state_mapping["rfx"]
