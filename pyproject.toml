@@ -5,9 +5,27 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "analysisutilities",
+    "datavisualization",
     "dill>=0.4.1",
+    "ipykernel>=7.2.0",
     "matplotlib>=3.10.8",
     "numpy>=2.4.2",
     "pandas>=3.0.1",
     "polars>=1.38.1",
+]
+
+[tool.uv.sources]
+datavisualization = { git = "https://github.com/CashabackLab/DataVisualization.git" }
+analysisutilities = { git = "https://github.com/CashabackLab/AnalysisUtilities.git" }
+human-human-control-competition-collaboration = { workspace = true, editable = true }
+
+[tool.uv.workspace]
+members = [
+    ".",
+]
+
+[dependency-groups]
+dev = [
+    "human-human-control-competition-collaboration",
 ]
