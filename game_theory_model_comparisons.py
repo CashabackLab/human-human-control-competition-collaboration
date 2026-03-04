@@ -17,7 +17,6 @@ from src.control_model import (
 import importlib
 
 importlib.reload(param)
-from memory_profiler import profile, memory_usage
 
 pl.Config.set_tbl_rows(50)
 
